@@ -14,7 +14,8 @@ public class Resrrrrr {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        system.out.println("lol");
+        System.out.println("HELLO WORLD ");
+        System.out.println("CODE CHECK ");
         // TODO code application logic here
     }
     
