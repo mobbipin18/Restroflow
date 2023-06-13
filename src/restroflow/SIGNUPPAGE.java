@@ -40,7 +40,6 @@ public class SIGNUPPAGE extends javax.swing.JFrame {
 
         txtconpassword.setFont(new java.awt.Font("Lucida Bright", 0, 12)); // NOI18N
         txtconpassword.setText("CONFIRM PASSWORD");
-        txtconpassword.setCaretColor(new java.awt.Color(255, 255, 255));
         txtconpassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtconpasswordActionPerformed(evt);
@@ -72,6 +71,11 @@ public class SIGNUPPAGE extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Lucida Bright", 0, 15)); // NOI18N
         jButton3.setText("Sign in");
         jButton3.setBorder(null);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Lucida Bright", 0, 12)); // NOI18N
         jLabel4.setText("Serving you with perfection!");
@@ -168,6 +172,7 @@ public class SIGNUPPAGE extends javax.swing.JFrame {
 
     private void btnsignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsignupActionPerformed
         Connection conn = Dbconnection.dbConnect();
+        System.out.println(conn);
                 try{
             Statement stmt=conn.createStatement();
             String sql="insert into register values('"+txtemail.getText()+"','"+txtusername.getText()+"','"+txtpassword.getText()+"','"+txtconpassword.getText()+"')";
@@ -183,6 +188,12 @@ public class SIGNUPPAGE extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnsignupActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+                    new login().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
