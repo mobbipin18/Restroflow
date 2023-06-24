@@ -178,7 +178,7 @@ public class login extends javax.swing.JFrame {
         try{
             Statement stmt=conn.createStatement();
             String query="select * from register where username='"+username44.getText()+"'AND password='"+password44.getText()+"'";
-                    ResultSet result=stmt.executeQuery(query);
+                    ResultSet result =stmt.executeQuery(query);
                     if (username.equals(username44.getText()) && password.equals(password44.getText())) {
             JOptionPane.showMessageDialog(this, "Login Successful");
         } else {
