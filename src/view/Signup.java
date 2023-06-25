@@ -35,9 +35,9 @@ public class Signup extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtfullname = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtusername44 = new javax.swing.JTextField();
+        username44 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtpassword44 = new javax.swing.JPasswordField();
+        password44 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         btnsign = new javax.swing.JButton();
@@ -79,6 +79,12 @@ public class Signup extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Lucida Bright", 0, 16)); // NOI18N
         jLabel2.setText("FULL NAME");
+
+        txtfullname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfullnameActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Lucida Bright", 0, 16)); // NOI18N
         jLabel3.setText("USERNAME");
@@ -131,9 +137,9 @@ public class Signup extends javax.swing.JFrame {
                                     .addComponent(jLabel1)
                                     .addComponent(txtfullname)
                                     .addComponent(jLabel3)
-                                    .addComponent(txtusername44, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                                    .addComponent(username44, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
                                     .addComponent(jLabel4)
-                                    .addComponent(txtpassword44))
+                                    .addComponent(password44))
                                 .addGap(0, 52, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -156,11 +162,11 @@ public class Signup extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtusername44, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(username44, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtpassword44, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(password44, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnsign, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -186,71 +192,62 @@ public class Signup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        login loginFrame = new login();
-        loginFrame.setVisible(true);
-        loginFrame.pack();
-        loginFrame.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        new Signup().setVisible(false);
+        dispose();
+        new login().setVisible(true);
 
+    }//GEN-LAST:event_jButton1ActionPerformed
+    boolean valid() {
+        String fname = txtfullname.getText();
+        String uname = username44.getText();
+        String pw = password44.getText();
+        if (fname.equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter your name");
+            return false;
+        }
+        if (uname.equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter username");
+            return false;
+        }
+        if (pw.equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter password");
+            return false;
+        } else {
+
+            return true;
+        }
+    }
     private void btnsignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsignActionPerformed
         // TODO add your handling code here:
-        Connection conn = Dbconnection.dbConnect();
-        System.out.println(conn);
-        try {
-            Statement stmt = conn.createStatement();
-            String sql = "insert into register values('"+txtfullname.getText() + "','" + txtusername44.getText() + "','" + txtpassword44.getText() + "')";
-            stmt.executeUpdate(sql);
-            System.out.println("Data inserted");
-            JOptionPane.showMessageDialog(null, "Sucessfully Created");
-            new Signup().setVisible(false);
-            dispose();
-            new login().setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        boolean ma = valid();
+        if (ma == false) {
 
-    
+        } else {
+            Connection conn = Dbconnection.dbConnect();
+            System.out.println(conn);
+            try {
+                Statement stmt = conn.createStatement();
+                String sql = "insert into register values('" + txtfullname.getText() + "','" + username44.getText() + "','" + password44.getText() + "')";
+                stmt.executeUpdate(sql);
+                System.out.println("Data inserted");
+                JOptionPane.showMessageDialog(null, "Sucessfully Created");
+                new Signup().setVisible(false);
+                dispose();
+                new login().setVisible(true);
+
+            } catch (Exception e) {
+                System.out.println("error insert" + e.getMessage());
+                e.printStackTrace();
+            }
+
+        }
     }//GEN-LAST:event_btnsignActionPerformed
 
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void txtfullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfullnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtfullnameActionPerformed
 
-}
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Signup.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Signup.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Signup.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Signup.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    public static void main(String args[]) {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -272,8 +269,8 @@ public static void main(String args[]) {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPasswordField password44;
     private javax.swing.JTextField txtfullname;
-    private javax.swing.JPasswordField txtpassword44;
-    private javax.swing.JTextField txtusername44;
+    private javax.swing.JTextField username44;
     // End of variables declaration//GEN-END:variables
 }

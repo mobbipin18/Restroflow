@@ -178,17 +178,35 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Signup SignupFrame = new Signup();
-        SignupFrame.setVisible(true);
-        SignupFrame.pack();
-        SignupFrame.setLocationRelativeTo(null);
-        this.dispose();
-        
+        new login().setVisible(false);
+        dispose();
+        new Signup().setVisible(true);
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
+boolean valid(){
+        String uname=username44.getText();
+        String password=password44.getText();
+            if (uname.equals(""))
+            {
+                JOptionPane.showMessageDialog(this,"Please enter your username");
+                return false;
+            }
+                if (password.equals(""))
+            {
+                JOptionPane.showMessageDialog(this,"Please enter password");
+                return false;
+            }
+                else{
+                return true;
+                }
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        boolean manish = valid();
+        if(manish==false){
+            
+        }
+        else{
         String username = username44.getText();
         String password = password44.getText();
         Connection conn = Dbconnection.dbConnect();
@@ -196,7 +214,8 @@ public class login extends javax.swing.JFrame {
             Statement stmt=conn.createStatement();
             String query="select * from register where username='"+username44.getText()+"'AND password='"+password44.getText()+"'";
                     ResultSet result =stmt.executeQuery(query);
-                    if (username.equals(username44.getText()) && password.equals(password44.getText())) {
+                    boolean man=result.next();
+                    if (man) {
             JOptionPane.showMessageDialog(this, "Login Successful");
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password", "Error", JOptionPane.ERROR_MESSAGE);
@@ -210,7 +229,50 @@ public class login extends javax.swing.JFrame {
         
 
     }//GEN-LAST:event_jButton2ActionPerformed
+}
+public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
 
+}
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Signup.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Signup.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Signup.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Signup.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new login().setVisible(true);
+            }
+        });
+    }
    
 
 
